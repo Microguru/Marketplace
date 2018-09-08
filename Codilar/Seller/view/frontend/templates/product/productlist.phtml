@@ -1,0 +1,112 @@
+<span class="delimiter"></span>
+
+
+<?php
+$products=$block->getProducts();
+$width = 200;
+$height = 300;
+$imageType = 'product_thumbnail_image';
+
+?>
+
+<?php if ($products && count($products) > 0): ?>
+<table border="1">
+        <tr>
+            <th><?= __("Id") ?></th>
+            <th><?= __("Thumbnails") ?></th>
+            <th><?= __("Name") ?></th>
+            <th><?= __("Sku") ?></th>
+            <th><?= __("Price") ?></th>
+            <th><?= __("Quantity") ?></th>
+            <th><?= __("Status") ?></th>
+            <th><?= __("action") ?></th>
+
+        </tr>
+
+        <?php foreach ($products as $product): ?>
+            <tr>
+                <td><?= $product->getId() ;?></td>
+            <?php $image = $block->getImage($product, $imageType);
+            $url= $image->getImageUrl();
+            $_productStock = $block->getStockItem($product->getId());
+
+            ?>
+                <td><a href="<?=$product->getProductUrl()?>" > <img src="<?= $url; ?> " alt="<?= $product->getName() ?> "></a>  </td>
+                <td><a href="<?=$product->getProductUrl()?>" > <?= $product->getName() ?> </a></td>
+                <td><?= $product->getSku() ?></td>
+                <td><?= $block->getCurrentCurrencySymbol();   ?><?= $product->getPrice() ?></td>
+                <td><?= $_productStock->getQty() ?></td>
+                <td><?= $product->getStatus() ?></td>
+                <td>
+                    <a href="<?php echo $block->getUrl('seller/product/edit',['param'=>$product->getId()]);?>"
+                       class='btn btn-success left-margin'>Edit</a>
+
+                </td>
+            </tr>
+        <?php endforeach; ?>
+<?php endif;?>
+</table>
+    <?php if ($block->getPagerHtml()): ?>
+        <div class="order-products-toolbar toolbar bottom"><?php echo $block->getPagerHtml(); ?></div>
+    <?php endif ?>
+
+
+<!---->
+<?php // $_gridrecords = $block->getCollection(); ?>
+<!---->
+<!---->
+<?php //if ($_gridrecords && count($_gridrecords)): ?>
+<!---->
+<!--<table>-->
+<!--    --><?php //foreach ($_gridrecords as $_gridrecord): ?>
+<?php // if($_gridrecord->getIsActive()):?>
+<!---->
+<!---->
+<!--    <style>-->
+<!--        {-->
+<!--            box-sizing: border-box;-->
+<!--        }-->
+<!---->
+<!--        .leftcolumn {-->
+<!--            float: left;-->
+<!--            width: 100%;-->
+<!--        }-->
+<!---->
+<!--        .card {-->
+<!--            background-color: white;-->
+<!--            padding: 20px;-->
+<!--            margin-top: 20px;-->
+<!--        }-->
+<!---->
+<!--        @media screen and (max-width: 800px) {-->
+<!--            .leftcolumn, .rightcolumn {-->
+<!--                width: 200%;-->
+<!--                padding: 0;-->
+<!--            }-->
+<!--        }-->
+<!--    </style>-->
+<!---->
+<!---->
+<!---->
+<!--    <div class="row">-->
+<!--        <div class="leftcolumn">-->
+<!--            <div class="card">-->
+<!--                <h2><strong> --><?php //echo $_gridrecord->getTitle(); ?><!--</strong></h2>-->
+<!---->
+<!--                <div --><?php //echo $block->getCmsFilterContent($_gridrecord->getContent()); ?><!--</div>-->
+<!--            <p><a href="--><?php //echo $block->getUrl('grid/index/view',array('id'=>$_gridrecord->getId()))?><!--">Read more</a></p>-->
+<!---->
+<!--        </div>-->
+<!---->
+<!--        --><?php // endif; ?>
+<!--        --><?php //endforeach; ?>
+<!--    </div>-->
+<!--    --><?php //if ($block->getPagerHtml()): ?>
+<!--        <div class="order-products-toolbar toolbar bottom">--><?php //echo $block->getPagerHtml();?><!--</div>-->
+<!--    --><?php //endif ?>
+<!--    --><?php //else: ?>
+<!---->
+<!--        <div class="message info empty"><span>--><?php //echo __('Blog posts not available.'); ?><!--</span></div>-->
+<!--    --><?php //endif ?>
+<!---->
+<!--</table>-->

@@ -1,0 +1,28 @@
+<?php
+/**
+ *  $block Codilar\CustomLogin\Block\Registration
+ */
+
+?>
+<?php
+?>
+<?php echo $block->getBlockHtml('formkey')?>
+
+
+<div class="field is_vendor">
+    <label class="label" for="vendor"><span><?php echo __('Want to become a vendor?') ?></span></label>
+    <div class="control">
+        <select name="is_vendor">
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+        </select>
+    </div>
+</div>
+<div class="field shop_url">
+    <label class="label" for="shop_url"><span><?php /* @escapeNotVerified */ echo __('Shop_Url') ?></span></label>
+    <div class="control">
+        <input type="text" id="shop_url" name="shop_url" value=""  title="<?php /* @escapeNotVerified */ echo __('Shop Url') ?>" class="input-text" autocomplete="off" />
+    </div>
+    <span style="color: red;">&lowast;This field is cumplusory for registrating as Vendor</span>
+</div>
+

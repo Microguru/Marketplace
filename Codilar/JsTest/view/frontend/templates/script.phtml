@@ -1,0 +1,22 @@
+<div data-bind="scope: 'manish-component'" >
+    <h2 data-bind="text:title"></h2>
+    </div>
+
+        <script type="text/x-magento-init">
+            {
+            "*":{
+                    "Magento_Ui/js/core/app":{
+                        "components":{
+                                "manish-component": {
+                                    "component": "Codilar_JsTest/js/component",
+                                    "title":"Hello World!"
+
+                                                     }
+
+                        }
+                    }
+                }
+
+
+            }
+        </script>

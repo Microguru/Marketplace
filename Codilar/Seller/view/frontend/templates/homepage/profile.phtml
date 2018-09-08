@@ -1,0 +1,114 @@
+<?php
+$seller=$block->sayHello();
+$image=$block->getImagePath();
+$products=$block->getProductData();
+$width = 200;
+$height = 300;
+$imageType = 'product_small_image';
+
+?>
+
+<style>
+    body {
+        background-color: linen;
+        background-image: url('<?=$image.$seller->getShopImage();?>');
+        background-repeat: no-repeat;
+        background-size: 100% 60%;
+        background-origin:content-box;
+        background-position:center center;
+    }
+
+    h1 {
+        color: maroon;
+        margin-left: 50%;
+    }
+
+    .square {
+        height: 150px;
+        width: 15%;
+        background-color: white;
+        margin-top: 20%;
+        margin-left: 10%;
+        border-style: outset;
+
+    }
+    .rectangle
+    {
+        height: 46px;
+        width: 15%;
+        margin-left: 10%;
+        background-color: black;
+        border-style: groove;
+        color:white;
+    }
+    .rectangle1
+    {
+        height: 46px;
+        width: 55%;
+        position: relative;
+
+        margin-left: 15%;
+        border-style: groove;
+        color:black;
+    }
+    .rectangle2
+    {
+
+        width: 10%;
+        position: relative;
+        display: inline-block;
+        margin-left: 14%;
+        border-style: outset;
+        color:black;
+    }
+    .heading
+    {
+        margin-left: 18%;
+    }
+</style>
+
+<div class="square"> </div>
+<div class="rectangle"><strong  style="text-align: right;"><?=$seller->getSellerName()?></strong>
+    <br/>
+    <?=$seller->getCountry()?> </div >
+
+<br/>
+<br/>
+<br/>
+
+
+<h3 class="heading">About Us</h3>
+<div class="rectangle1">
+<?=$seller->getAboutUs()?>
+</div>
+
+
+<br />
+<br />
+
+
+<?php foreach ($products as $product): ?>
+
+<div class="rectangle2">
+<?php $image = $block->getImage($product, $imageType);
+            $url= $image->getImageUrl();?>
+   <a href="<?=$product->getProductUrl()?>"> <img src="<?= $url; ?> " alt="<?= $product->getName() ?> "  ></a>
+    <a href="<?=$product->getProductUrl()?>"><?= $product->getName() ?><br /></a>
+    <?= $block->getCurrentCurrencySymbol();   ?>  <?= $product->getPrice() ?>
+</div>
+<?php endforeach; ?>
+<br/>
+<br/>
+<button style="margin-left: 38%"><a href="<?=$block->getUrl('');?>">Explore More</a></button>
+
+<br/>
+<br/>
+<br/>
+<h3 class="heading">Return Policy</h3>
+<div class="rectangle1">
+    <?=$seller->getReturnPolicy()?></div>
+<h3 class="heading">Shipping Policy</h3>
+<div class="rectangle1">
+    <?=$seller->getShippingPolicy()?></div>
+
+

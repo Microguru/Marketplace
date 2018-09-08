@@ -1,0 +1,24 @@
+<!--<script type="text/javascript">-->
+<!--    requirejs(['Codilar_JsTest/example'],function(example){-->
+<!--        alert("Loaded");-->
+<!--        console.log(example);-->
+<!--    });-->
+<!--</script>-->
+
+//Magento will look at the key of this object, and include it (the key) as a RequireJS module.
+
+<div id="one" class="foo">
+    Hello World
+</div>
+<div id="two" class="foo">
+    Goodbye World
+</div>
+
+<script type="text/x-magento-init">
+    {
+
+        ".foo": {
+            "Codilar_JsTest/example":{"config":"value"}
+        }
+    }
+</script>

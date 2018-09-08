@@ -1,0 +1,126 @@
+<?php
+
+$takes=$block->getproductId();
+
+$vendorId=$block->getcustomerId();
+
+$orders=$block->getOrders();
+
+foreach ($orders as $order) {
+    foreach ( $order->getAllItems () as $item ) {
+        echo $order->getOrderId();
+//      echo  $order->getIncrementId();
+      echo "<br />";
+
+        echo "<br />";
+       // echo $order->getName();
+
+    }
+
+}
+$count1=0;
+
+    foreach ( $takes as $take => $value ) {
+        foreach ( $value as $v ) {
+            $pid = $v["product_id"];
+            if ($block->isVendorId ( $pid ) == $vendorId) {
+                $count1++;
+                }
+            }
+
+        }
+
+echo $count1;
+
+
+$count=0;
+
+    foreach ( $takes as $take => $value ) {
+        foreach ( $value as $v ) {
+            //print_r ( $v);
+            $id = $v["id"];
+            $name = $v["name"];
+            $pid = $v["product_id"];
+            $created = $v["created_at"];
+            $itemId = $v["itemId"];
+            $orderId = $v["orderId"];
+            $sku = $v["sku"];
+            $price = $v["price"];
+            $qty = $v["ordered Qty"];
+
+            if ($block->isVendorId ( $pid ) == $vendorId) {
+                $count++;
+                echo "<table border='1'>";
+                echo "<tr>";
+                echo "<th>Order Detail</th>";
+                echo "<th> Customer Detail</th>";
+                echo "<th> Action</th>";
+                echo "</tr>";
+                echo "<th>";
+                echo 'Order_Id : &nbsp;&nbsp;&nbsp;' . $id;
+                echo "<br/>";
+                echo "Name :&nbsp;&nbsp;&nbsp;" . $name;
+                echo "<br/>";
+                echo "Created_At :&nbsp;&nbsp;&nbsp;" . $created;
+                echo "<br/>";
+                echo "Product  :&nbsp;&nbsp;&nbsp;" . $pid;
+                echo "<br/>";
+                echo "Sku  :&nbsp;&nbsp;&nbsp;" . $sku;
+                echo "<br/>";
+                echo "orderId :&nbsp;&nbsp;&nbsp;" . $orderId;
+                echo "<br/>";
+                echo "itemId  :&nbsp;&nbsp;&nbsp;" . $itemId;
+                echo "<br/>";
+                echo "Price :&nbsp;&nbsp;&nbsp;" . $price;
+                echo "<br/>";
+                echo "Quantity :&nbsp;&nbsp;&nbsp;" . $qty;
+                echo "<br/>";
+                echo "</th>";
+                echo "<th>";
+
+                $order = $block->getOrderById ( $orderId );
+                if ($order->getStatus () == "complete") {
+                    echo 'Status : &nbsp;&nbsp;&nbsp;' . '<strong style="border:2px solid green; background-color: green; margin-left:10px;" >' . $order->getStatus () . '</strong>';
+                } else if ($order->getStatus () == "processing") {
+                    echo 'Status : &nbsp;&nbsp;&nbsp;' . '<strong style="border:2px solid yellow; background-color: yellow; margin-left:10px;" >' . $order->getStatus () . '</strong>';
+                } else {
+                    echo 'Status : &nbsp;&nbsp;&nbsp;' . '<strong style="border:2px solid red;  background-color: red;  margin-left:10px;" >' . $order->getStatus () . '</strong>';
+                }
+                echo "<br/>";
+
+                echo "Name :&nbsp;&nbsp;&nbsp;" . $order->getCustomername ();
+
+                echo "<br/>";
+                echo "Email :&nbsp;&nbsp;&nbsp;" . $order->getCustomerEmail ();;
+                echo "<br/>";
+                echo "GrandTotal :&nbsp;&nbsp;&nbsp;" . $order->getGrandTotal ();
+                echo "<br/>";
+                echo "</th>";
+                echo "<th>";
+                echo "  <a href=" . $block->getUrl ( 'seller/order/createinvoice', ['param' => $id] ) . ">Create Invoice</a>";
+                echo "<br/>";
+                echo "  <a href=" . $block->getUrl ( 'seller/order/ordership', ['param' => $id] ) . ">Shippment</a>";
+                echo "</th>";
+                echo "</table>";
+            }
+
+        }
+
+}
+        if ($block->getPagerHtml ()):
+            echo '<div class="order-products-toolbar toolbar bottom">';
+            echo $block->getPagerHtml ();
+            echo '</div>';
+        endif;
+
+
+
+if($count==0)
+{
+    echo "No order to diplay";
+}
+
+?>
+
+
+
